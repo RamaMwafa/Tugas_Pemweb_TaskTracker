@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Tracker v2 - REST API</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Pastikan mock-api dari asisten diletakkan SEBELUM app.js -->
+    <!-- <script src="mock-api.js" defer></script> -->
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>TASK TRACKER V2 API</h2>
+        <div class="racing-stripe"></div>
+      </div>
+
+      <form id="taskForm">
+        <input type="text" id="judulTugas" placeholder="Judul tugas (min. 3 karakter)" required minlength="3" />
+        <div class="form-row">
+          <!-- Opsi dikosongkan karena akan di-fetch dari API -->
+          <select id="mataKuliah" required>
+            <option value="" disabled selected>PILIH MATA KULIAH...</option>
+          </select>
+          <input type="date" id="deadline" required />
+          <button type="submit" id="btnTambah">TAMBAH</button>
+        </div>
+      </form>
+
+      <div class="filter-container">
+        <div class="filter-buttons">
+          <button class="btn-filter active" data-filter="semua">SEMUA</button>
+          <button class="btn-filter" data-filter="aktif">AKTIF</button>
+          <button class="btn-filter" data-filter="selesai">SELESAI</button>
+        </div>
+        <span class="task-counter" id="taskCounter">0 TUGAS AKTIF</span>
+      </div>
+
+      <!-- Elemen untuk menampilkan pesan Loading / Error -->
+      <div id="ui-status" style="text-align: center; color: #e6c200; font-family: &quot;Bebas Neue&quot;, sans-serif; font-size: 22px; margin-bottom: 15px; display: none"></div>
+
+      <ul id="taskList"></ul>
+    </div>
+  </body>
+</html>
