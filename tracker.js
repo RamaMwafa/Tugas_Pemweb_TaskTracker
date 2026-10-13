@@ -57,3 +57,26 @@ taskForm.addEventListener("submit", function (e) {
   taskForm.reset();
   render();
 });
+
+// Event Delegation untuk Checkbox Selesai & Tombol Hapus
+taskList.addEventListener("click", function (e) {
+  const li = e.target.closest(".task-item");
+  if (!li) return;
+
+  const id = Number(li.dataset.id);
+
+  // Jika yang diklik adalah checkbox
+  if (e.target.classList.contains("check-tugas")) {
+    const task = tasks.find((t) => t.id === id);
+    if (task) {
+      task.selesai = e.target.checked;
+      render();
+    }
+  }
+
+  // Jika yang diklik adalah tombol hapus X
+  if (e.target.classList.contains("btn-hapus")) {
+    tasks = tasks.filter((t) => t.id !== id);
+    render();
+  }
+});
