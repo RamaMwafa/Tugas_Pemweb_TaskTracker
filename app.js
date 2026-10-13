@@ -107,3 +107,48 @@ async function loadData() {
         renderStatus("GAGAL MEMUAT DATA SERVER!", true); // State Error
     }
 }
+
+const btnTambah = document.getElementById("btnTambah");
+
+taskForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const judul = document.getElementById("judulTugas").value.trim();
+    const matkul = mataKuliahSelect.value;
+    const deadline = document.getElementById("deadline").value;
+
+    if (judul.length < 3) return;
+
+    try {
+        btnTambah.disabled = true;
+        btnTambah.textContent = "MENGIRIM...";
+        renderStatus("");
+
+        const newTaskPayload = { judul, matkul, deadline, selesai: false };
+
+        const savedTask = await api('/api/tugas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newTaskPayload)
+        });
+
+        tasks.push(savedTask);
+        taskForm.reset();
+        render();
+    } catch (error) {
+        renderStatus(error.message, true);
+    } finally {
+        btnTambah.disabled = false;
+        btnTambah.textContent = "TAMBAH";
+    }
+});
+
+// Event Listener Filter UI
+document.querySelectorAll(".btn-filter").forEach(btn => {
+    btn.addEventListener("click", function () {
+        document.querySelectorAll(".btn-filter").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        currentFilter = this.dataset.filter;
+        render();
+    });
+});
