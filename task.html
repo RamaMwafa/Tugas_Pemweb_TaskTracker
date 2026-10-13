@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Tracker Kuliah - Retro Racing</title>
+    <!-- Import font Bebas Neue dan Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <!-- Menghubungkan ke file CSS eksternal -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>TASK TRACKER KULIAH</h2>
+        <div class="racing-stripe"></div>
+      </div>
+
+      <!-- Bagian Form -->
+      <form id="taskForm">
+        <input type="text" id="judulTugas" placeholder="Judul tugas (min. 3 karakter)" required minlength="3" />
+
+        <div class="form-row">
+          <select id="mataKuliah" required>
+            <option value="" disabled selected>PILIH MATA KULIAH...</option>
+            <option value="Pemrograman Web">Pemrograman Web</option>
+            <option value="Basis Data">Basis Data</option>
+            <option value="Jaringan Komputer">Jaringan Komputer</option>
+          </select>
+          <input type="date" id="deadline" required />
+          <button type="submit" id="btnTambah">TAMBAH</button>
+        </div>
+      </form>
+
+      <!-- Bagian Filter -->
+      <div class="filter-container">
+        <div class="filter-buttons">
+          <button class="btn-filter active">SEMUA</button>
+          <button class="btn-filter">AKTIF</button>
+          <button class="btn-filter">SELESAI</button>
+        </div>
+        <span class="task-counter">2 TUGAS AKTIF</span>
+      </div>
+
+      <!-- Daftar Tugas -->
+      <ul id="taskList">
+        <!-- Contoh Tugas 1 (Belum Selesai) -->
+        <li class="task-item">
+          <input type="checkbox" class="check-tugas" />
+          <div class="task-info">
+            <span class="judul">Lab 10 event delegation</span>
+            <span class="meta-data">Pemrograman Web // Deadline: 2026-10-08</span>
+          </div>
+          <button class="btn-hapus">X</button>
+        </li>
+
+        <!-- Contoh Tugas 2 (Sudah Selesai) -->
+        <li class="task-item selesai">
+          <input type="checkbox" class="check-tugas" checked />
+          <div class="task-info">
+            <span class="judul">ERD sistem perpustakaan</span>
+            <span class="meta-data">Basis Data // Deadline: 2026-10-12</span>
+          </div>
+          <button class="btn-hapus">X</button>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

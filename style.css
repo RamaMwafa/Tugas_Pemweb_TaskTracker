@@ -1,0 +1,238 @@
+/* Reset dan Font Setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* Background grid ala visual 80s/90s arcade */
+  background-color: #0a0a0a;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  font-family: "Inter", sans-serif;
+  color: #e0e0e0;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Container bergaya Dashboard Panel dengan Retro Solid Shadow */
+.container {
+  background-color: #141414;
+  width: 100%;
+  max-width: 650px;
+  padding: 30px;
+  border: 3px solid #333;
+  /* Efek shadow arcade klasik dengan warna Racing Navy */
+  box-shadow: 8px 8px 0px #1e40af;
+  position: relative;
+}
+
+/* Header dengan font Bebas Neue dan aksen Racing Stripe */
+.header h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 38px;
+  color: #ffffff;
+  letter-spacing: 2px;
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.racing-stripe {
+  height: 6px;
+  width: 100%;
+  background: repeating-linear-gradient(45deg, #1e40af, #1e40af 10px, #ffffff 10px, #ffffff 20px);
+  margin-bottom: 25px;
+}
+
+/* --- Styling Form --- */
+#taskForm {
+  margin-bottom: 30px;
+}
+
+input,
+select,
+button {
+  border-radius: 0; /* Ujung tajam ala desain retro */
+  outline: none;
+}
+
+#judulTugas {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #0a0a0a;
+  border: 2px solid #444;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+}
+
+#judulTugas:focus,
+.form-row select:focus,
+.form-row input[type="date"]:focus {
+  border-color: #1e40af;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row select,
+.form-row input[type="date"] {
+  flex: 1;
+  padding: 12px;
+  background-color: #0a0a0a;
+  border: 2px solid #444;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+}
+
+/* Tombol Submit ala Arcade Button */
+#btnTambah {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  padding: 0 25px;
+  background-color: #1e40af;
+  color: white;
+  border: 2px solid #1e40af;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.1s;
+}
+
+#btnTambah:hover {
+  background-color: #fff;
+  color: #1e40af;
+  border-color: #fff;
+}
+
+#btnTambah:active {
+  transform: translate(2px, 2px);
+}
+
+/* --- Styling Filter --- */
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #333;
+  padding-bottom: 15px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-filter {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 18px;
+  padding: 5px 15px;
+  background-color: transparent;
+  border: 2px solid #555;
+  color: #888;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.btn-filter.active,
+.btn-filter:hover {
+  background-color: #e6c200; /* Warna kuning retro dipertahankan sebagai kontras navy */
+  color: #000;
+  border-color: #e6c200;
+}
+
+.task-counter {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 18px;
+  color: #1e40af;
+  letter-spacing: 1px;
+}
+
+/* --- Styling List Tugas --- */
+#taskList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #1f1f1f;
+  border: 2px solid #333;
+  border-left: 5px solid #444;
+  transition: transform 0.2s;
+}
+
+.task-item:hover {
+  transform: translateX(5px);
+  border-left-color: #e6c200;
+}
+
+.check-tugas {
+  margin-right: 15px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #1e40af;
+}
+
+.task-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-info .judul {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.task-info .meta-data {
+  font-size: 12px;
+  color: #888;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Tombol Hapus */
+.btn-hapus {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 18px;
+  background-color: transparent;
+  color: #555;
+  border: 2px solid #555;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.btn-hapus:hover {
+  background-color: #1e40af;
+  color: #fff;
+  border-color: #1e40af;
+}
+
+/* State Tugas Selesai */
+.task-item.selesai {
+  opacity: 0.6;
+  border-left-color: #333;
+}
+
+.task-item.selesai:hover {
+  transform: none;
+  border-left-color: #333;
+}
+
+.task-item.selesai .judul {
+  text-decoration: line-through;
+  color: #777;
+}
