@@ -32,3 +32,28 @@ function render() {
 
 // Panggil render saat halaman dimuat
 render();
+
+// Handle form tambah tugas
+const taskForm = document.getElementById("taskForm");
+
+taskForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const judul = document.getElementById("judulTugas").value.trim();
+  const matkul = document.getElementById("mataKuliah").value;
+  const deadline = document.getElementById("deadline").value;
+
+  if (judul.length < 3) return; // Validasi minimal 3 karakter
+
+  const newTask = {
+    id: Date.now(), // Generate ID unik
+    judul: judul,
+    matkul: matkul,
+    deadline: deadline,
+    selesai: false,
+  };
+
+  tasks.push(newTask);
+  taskForm.reset();
+  render();
+});
