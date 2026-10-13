@@ -152,3 +152,49 @@ document.querySelectorAll(".btn-filter").forEach(btn => {
         render();
     });
 });
+
+taskList.addEventListener("click", async function (e) {
+    const li = e.target.closest(".task-item");
+    if (!li) return;
+    
+    const id = li.dataset.id;
+    const task = tasks.find((t) => t.id == id);
+    if (!task) return;
+
+    // Aksi Ubah Status (PATCH)
+    if (e.target.classList.contains("check-tugas")) {
+        const isChecked = e.target.checked;
+        e.target.disabled = true; // Lock sementara
+
+        try {
+            await api(`/api/tugas/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ selesai: isChecked })
+            });
+            task.selesai = isChecked;
+            render();
+        } catch (error) {
+            e.target.checked = !isChecked; // Revert jika API gagal
+            e.target.disabled = false;
+            renderStatus(error.message, true);
+        }
+    }
+
+    // Aksi Hapus (DELETE)
+    if (e.target.classList.contains("btn-hapus")) {
+        const btn = e.target;
+        btn.disabled = true;
+        btn.textContent = "...";
+
+        try {
+            await api(`/api/tugas/${id}`, { method: 'DELETE' });
+            tasks = tasks.filter((t) => t.id != id);
+            render();
+        } catch (error) {
+            btn.disabled = false;
+            btn.textContent = "X";
+            renderStatus(error.message, true);
+        }
+    }
+});
