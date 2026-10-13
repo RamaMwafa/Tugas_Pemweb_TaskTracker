@@ -39,3 +39,71 @@ async function loadData() {
 
 // Inisialisasi
 loadData();
+
+// Helper untuk UI Status (Loading / Error)
+function renderStatus(pesan, isError = false) {
+    uiStatus.textContent = pesan;
+    uiStatus.style.color = isError ? "#ff003c" : "#e6c200";
+    uiStatus.style.display = pesan ? "block" : "none";
+}
+
+// Fungsi Render Utama
+function render() {
+    taskList.innerHTML = "";
+
+    let filteredTasks = tasks;
+    if (currentFilter === "aktif") filteredTasks = tasks.filter((t) => !t.selesai);
+    else if (currentFilter === "selesai") filteredTasks = tasks.filter((t) => t.selesai);
+
+    // Empty State
+    if (filteredTasks.length === 0) {
+        taskList.innerHTML = `<p style="text-align:center; color:#888;">Data tugas kosong.</p>`;
+    }
+
+    filteredTasks.forEach((task) => {
+        const li = document.createElement("li");
+        li.className = `task-item ${task.selesai ? "selesai" : ""}`;
+        li.dataset.id = task.id;
+
+        li.innerHTML = `
+            <input type="checkbox" class="check-tugas" ${task.selesai ? "checked" : ""}>
+            <div class="task-info">
+                <span class="judul"></span>
+                <span class="meta-data">${task.matkul} // Deadline: ${task.deadline}</span>
+            </div>
+            <button class="btn-hapus">X</button>
+        `;
+        li.querySelector(".judul").textContent = task.judul;
+        taskList.appendChild(li);
+    });
+
+    const activeTasksCount = tasks.filter((t) => !t.selesai).length;
+    document.getElementById("taskCounter").textContent = activeTasksCount === 0 ? "TIDAK ADA TUGAS AKTIF" : `${activeTasksCount} TUGAS AKTIF`;
+}
+
+// Update fungsi loadData (Timpa fungsi loadData lama dengan yang ini)
+async function loadData() {
+    try {
+        renderStatus("MEMUAT DATA DARI SERVER..."); // State Loading
+        
+        const [tugasData, matkulData] = await Promise.all([
+            api('/api/tugas'),
+            api('/api/matkul')
+        ]);
+        
+        tasks = tugasData;
+        
+        matkulData.forEach(mk => {
+            const option = document.createElement('option');
+            const nama = typeof mk === 'string' ? mk : mk.nama;
+            option.value = nama;
+            option.textContent = nama;
+            mataKuliahSelect.appendChild(option);
+        });
+        
+        renderStatus(""); // Sembunyikan loading
+        render();
+    } catch (error) {
+        renderStatus("GAGAL MEMUAT DATA SERVER!", true); // State Error
+    }
+}
