@@ -198,3 +198,26 @@ taskList.addEventListener("click", async function (e) {
         }
     }
 });
+
+async function api(endpoint, options = {}) {
+    try {
+        const res = await fetch(endpoint, options);
+        
+        // Pengecekan krusial res.ok sesuai instruksi modul
+        if (!res.ok) {
+            let errorMsg = `Gagal terhubung ke server (${res.status})`;
+            try {
+                const errData = await res.json();
+                if (errData.message) errorMsg = errData.message;
+            } catch (e) {} // Abaikan jika response bukan JSON
+            
+            throw new Error(errorMsg);
+        }
+        
+        if (res.status === 204) return null;
+        return await res.json();
+    } catch (error) {
+        // Menangkap error network seperti offline / timeout
+        throw new Error(error.message || "Masalah jaringan / API Offline");
+    }
+}
